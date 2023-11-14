@@ -17,6 +17,7 @@
 default: &default
   adapter: postgresql
   encoding: unicode
+  port: 5432
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
@@ -82,5 +83,6 @@ test:
 production:
   <<: *default
   database: realtime_chat_api_production
-  username: realtime_chat_api
-  password: <%= ENV["REALTIME_CHAT_API_DATABASE_PASSWORD"] %>
+  host: <%= ENV.fetch("POSTGRES_HOST") || "localhost" %>
+  username: <%= ENV.fetch("POSTGRES_USER") %>
+  password: <%= ENV.fetch("POSTGRES_PASSWORD") %>
