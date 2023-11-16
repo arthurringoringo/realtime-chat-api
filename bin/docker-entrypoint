@@ -1,0 +1,11 @@
+#!/bin/bash
+set -e
+
+if [ -f tmp/pids/server.pid ]; then
+    rm tmp/pids/server.pid
+fi
+
+# If running the rails server then create or migrate existing database
+./bin/rails db:prepare --trace
+
+exec "${@}"

@@ -1,0 +1,25 @@
+version: '3.8'
+networks:
+  prod:
+volumes:
+  postgres_data: { }
+  app-storage: { }
+services:
+  api:
+    image: chat_api:latest
+    stdin_open: true
+    tty: true
+    links:
+      - "db:database"
+    command: ['rails', 'server', '-p', '3001', '-b', '0.0.0.0']
+    env_file:
+      - .env
+    volumes:
+      - app-storage:/rails/storage
+    depends_on:
+      - db
+    ports:
+      - "3001:3001"
+    dns: 8.8.8.8
+    networks:
+      - prod
