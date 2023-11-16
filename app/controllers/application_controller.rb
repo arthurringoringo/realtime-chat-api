@@ -6,7 +6,7 @@ class ApplicationController < ActionController::API
     render json: { error: 'Missing/Empty parameters' }, status: :unprocessable_entity
   end
   def record_invalid(exception)
-    render json: { error: exception.record.errors.full_messages }, status: :unprocessable_entity
+    render json: { error: exception }, status: :unprocessable_entity
   end
   def record_not_found(e)
     error_message = e || "Record Not Found"

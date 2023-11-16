@@ -5,20 +5,23 @@ class UsersController < ApplicationController
   def index
     @users = User.all
 
-    render json: @users
+    render_json(@users)
   end
 
   # GET /users/1
   def show
-    render json: @user
+    render_json(@user)
   end
 
   # POST /users
   def as_user
-    @user = User.find_or_create_by(request_body[:username])
+    @user = User.find_or_create_by!(username: request_body[:username])
 
-    render_json(@user) if @user
-    raise ActiveRecord::RecordNotFound, "User not found"
+    if @user
+      render_json(@user)
+    else
+      raise ActiveRecord::RecordNotFound, "User not found"
+    end
   end
   #
   # # PATCH/PUT /users/1
