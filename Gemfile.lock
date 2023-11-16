@@ -1,6 +1,8 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    action-cable-testing (0.6.1)
+      actioncable (>= 5.0)
     actioncable (7.0.8)
       actionpack (= 7.0.8)
       activesupport (= 7.0.8)
@@ -196,6 +198,7 @@ PLATFORMS
   arm64-darwin-22
 
 DEPENDENCIES
+  action-cable-testing
   bootsnap
   database_cleaner
   debug

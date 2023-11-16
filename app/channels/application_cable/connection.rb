@@ -1,8 +1,5 @@
 module ApplicationCable
   class Connection < ActionCable::Connection::Base
-
-    def connect
-
-    end
+    identified_by :user
   end
 end

@@ -13,7 +13,7 @@ class UsersController < ApplicationController
     render_json(@user)
   end
 
-  # POST /users
+  # POST /chat_as
   def as_user
     @user = User.find_or_create_by!(username: request_body[:username])
 

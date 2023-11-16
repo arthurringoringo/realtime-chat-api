@@ -1,13 +1,13 @@
 class MessagesController < ApplicationController
   before_action :set_message, only: %i[ show update destroy ]
 
-  # GET /messages
+  # GET /chat_room/:id/messages
   def index
-    raise ActionController::ParameterMissing unless request_body[:room_id]
-    room_id = request_body[:room_id]
+    raise ActionController::ParameterMissing unless params[:id]
+    room_id = params[:id]
     @messages = Message.where(:room_id => room_id)
 
-    render_json(@messages)
+    render_json(@messages.to_a)
   end
 
   # GET /messages/1
@@ -25,7 +25,10 @@ class MessagesController < ApplicationController
     )
 
     if @message.save
-      ActionCable.server.broadcast(chat_room, @message)
+      chat_room.chat_room_members.map(&:user).each do |user|
+        # ActionCable.server.broadcast(user.username, @message.as_json)
+        ChatChannel.broadcast_to(user, @message)
+      end
       render_json(@message)
     else
       raise ActiveRecord::RecordInvalid

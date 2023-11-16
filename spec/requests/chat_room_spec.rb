@@ -48,7 +48,7 @@ RSpec.describe "ChatRooms", type: :request do
 
     it "return error when non existent room called" do
       get_json "/chat_rooms/123123123", {}, {}
-      expect_response(:not_found, {error: "ChatRoom not found"})
+      expect_response(:not_found, {error: "ChatRoom Not Found"})
     end
 
   end
