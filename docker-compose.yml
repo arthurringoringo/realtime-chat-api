@@ -5,12 +5,10 @@ volumes:
   postgres_data: { }
   app-storage: { }
 services:
-  api:
+  chat_api:
     image: chat_api:latest
     stdin_open: true
     tty: true
-    links:
-      - "db:database"
     command: ['rails', 'server', '-p', '3001', '-b', '0.0.0.0']
     env_file:
       - .env
