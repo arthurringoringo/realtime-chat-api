@@ -16,8 +16,6 @@ services:
       - .env
     volumes:
       - app-storage:/rails/storage
-    depends_on:
-      - db
     ports:
       - "3001:3001"
     dns: 8.8.8.8
