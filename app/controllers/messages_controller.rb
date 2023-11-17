@@ -6,8 +6,14 @@ class MessagesController < ApplicationController
     raise ActionController::ParameterMissing unless params[:id]
     room_id = params[:id]
     @messages = Message.where(:room_id => room_id)
-
-    render_json(@messages.to_a)
+    messages = []
+    if @messages
+      @messages.each do |text|
+        messages << {sender: text.sender, room_id: text.room_id, text: text.text, created_at: text.created_at.strftime("%F %T %Z")}
+      end
+      @messages = messages
+    end
+    render_json(@messages)
   end
 
   # GET /messages/1
@@ -27,7 +33,8 @@ class MessagesController < ApplicationController
     if @message.save
       chat_room.chat_room_members.map(&:user).each do |user|
         # ActionCable.server.broadcast(user.username, @message.as_json)
-        ChatChannel.broadcast_to(user, @message)
+        data = {sender: @message.sender, room_id: @message.room_id, text: @message.text, created_at: @message.created_at.strftime("%F %T %Z")}
+        ChatChannel.broadcast_to(user, data)
       end
       render_json(@message)
     else

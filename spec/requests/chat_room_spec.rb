@@ -51,6 +51,18 @@ RSpec.describe "ChatRooms", type: :request do
       expect_response(:not_found, {error: "ChatRoom Not Found"})
     end
 
+    it "return users joined chat room" do
+      get_json "/user/#{@user1.id}/chat_room", {},{}
+      expect_response(
+      :ok,
+        [
+          {
+            id: @chat_room_1.id,
+            name: @chat_room_1.name
+          }
+        ]
+      )
+    end
   end
 
   describe "POST & PATCH" do

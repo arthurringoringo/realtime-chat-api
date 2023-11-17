@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :users
 
   get "chat_room/:id/messages", to: "messages#index"
+  get "user/:id/chat_room", to: "chat_rooms#users_room"
   post "messages/", to: "messages#create"
   post "chat_as/", to: "users#as_user"
   post "chat_rooms/join/:id", to: "chat_rooms#join"

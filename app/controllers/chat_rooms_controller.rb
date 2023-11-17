@@ -8,6 +8,11 @@ class ChatRoomsController < ApplicationController
     render_json(@chat_rooms)
   end
 
+  def users_room
+    @chat_rooms = ChatRoom.joins(:chat_room_members).where(chat_room_members: {user_id: params[:id]})
+    render_json(@chat_rooms)
+  end
+
   # GET /chat_rooms/1
   def show
     users = []
