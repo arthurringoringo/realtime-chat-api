@@ -23,6 +23,7 @@ module RealtimeChatApi
       IPAddr.new("::/0"),             # All IPv6 addresses.
       "localhost",
       "dev-dms.arthurringo.com",
+      "chat-api.arthurringo.com",
       "arthurringo.com",
       "www.example.com"
     ]
